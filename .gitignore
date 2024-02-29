@@ -40,3 +40,4 @@ build/
 ### MODPACKS ###
 /modpacks/*
 /logs
+/runtimes

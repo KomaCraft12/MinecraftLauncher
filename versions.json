@@ -1,12 +1,21 @@
 {
   "Vanilla": {
     "isown": false,
+    "java": "jdk-17.0.8",
     "gameDirector": "\\modpacks\\vanilla",
     "icon": "https://minecraft.komaweb.eu/modpacks/vanilla/icon/vanilla.png",
     "version": "1.20.4"
   },
+  "HexxitReloaded": {
+    "isown": false,
+    "java": "jre-1.8",
+    "gameDirector": "\\modpacks\\hexxitreloaded",
+    "icon": "https://minecraft.komaweb.eu/modpacks/hexxitreloaded/icon/hexxitreloaded.png",
+    "version": "1.12.2-forge-14.23.5.2860"
+  },
   "CreateMod": {
     "isown": false,
+    "java": "jdk-17.0.8",
     "gameDirector": "\\modpacks\\createmod",
     "icon": "https://minecraft.komaweb.eu/modpacks/createmod/icon/createmod.png",
     "version": "1.20.1-forge-47.2.0"

@@ -141,6 +141,7 @@ public class ModpackDownload extends JFrame {
                         String iconPath = result.getString("icon");
                         String forge = result.getString("forge");
                         String version = result.getString("version");
+                        String java = result.getString("java");
                         String url = result.getString("url");
                         Integer id = result.getInt("id");
 
@@ -165,6 +166,7 @@ public class ModpackDownload extends JFrame {
                                     data.put("icon", iconPath);
                                     data.put("forge", forge);
                                     data.put("version", version);
+                                    data.put("java", java);
 
                                     zip_url = url;
 
@@ -357,6 +359,7 @@ public class ModpackDownload extends JFrame {
             modpack.put("version", version);
             modpack.put("gameDirector", "\\modpacks\\"+data.get("name").toString().toLowerCase());
             modpack.put("icon", data.get("icon"));
+            modpack.put("java", data.get("java"));
 
             jsonObject.put(data.get("name").toString(), modpack); // Új modpack hozzáadása a jsonObject-hez
 

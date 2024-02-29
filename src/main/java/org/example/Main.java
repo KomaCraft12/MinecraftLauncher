@@ -157,7 +157,7 @@ public class Main {
     Integer id = -1;
 
     String selected_version, gamedirector = "", username;
-    String url = "", title = "Tölts le egy modpacket!", skinfile;
+    String url = "", title = "Tölts le egy modpacket!", skinfile, java;
     Boolean isown = false;
 
     public JSONObject getVersions(){
@@ -185,6 +185,7 @@ public class Main {
                 gamedirector = firstElement.get("gameDirector").toString();
                 selected_version = firstElement.get("version").toString();
                 url = firstElement.get("icon").toString();
+                java = firstElement.get("java").toString();
 
             }
 
@@ -616,7 +617,7 @@ public class Main {
 
                         String director = (currentDirectory + "" + gamedirector).replace("\\", "\\\\");
 
-                        String command = "mc_run.exe --gamedirector \"" + director + "\" --version \"" + selected_version + "\" --username \"" + player + "\" --javadir \"C:\\Program Files\\Java\\jdk-17.0.8\\bin\\javaw.exe\"";
+                        String command = "mc_run.exe --gamedirector \"" + director + "\" --version \"" + selected_version + "\" --username \"" + player + "\" --javadir \"runtimes\\"+ java +"\\bin\\javaw.exe\"";
 
                         System.out.println(command);
 
@@ -665,48 +666,53 @@ public class Main {
 
     public void printNews(){
 
-        news_panel.removeAll();
-        news_panel.add(Box.createVerticalStrut(10));
-
-        String version = selected_version.split("-")[0];
         Integer id = null;
         Integer szamlalo = 0;
 
-        if(isInternetAvailable()) {
+        if(selected_version != null) {
 
-            Database database = new Database();
-            ResultSet result = database.getTable("SELECT * FROM modpacks WHERE version = '" + version + "' AND icon = '" + url + "' AND name = '" + modpack_title.getText() + "'");
-            try {
-                while (result.next()) {
-                    id = result.getInt("id");
-                    System.out.println(id);
-                }
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            news_panel.removeAll();
+            news_panel.add(Box.createVerticalStrut(10));
 
-            Integer news_id = null;
-            String author, title, description = null;
-            ResultSet news_result = database.getTable("SELECT * FROM news WHERE modpack_id = " + id + " ORDER BY date DESC LIMIT 10");
-            if (news_result != null) {
+            String version = selected_version.split("-")[0];
+
+            if (isInternetAvailable()) {
+
+                Database database = new Database();
+                ResultSet result = database.getTable("SELECT * FROM modpacks WHERE version = '" + version + "' AND icon = '" + url + "' AND name = '" + modpack_title.getText() + "'");
                 try {
-                    while (news_result.next()) {
-                        szamlalo += 1;
-                        news_id = news_result.getInt("id");
-                        title = news_result.getString("title");
-                        description = news_result.getString("description");
-
-
-                        NewsComponent component = new NewsComponent(title, description,url, "");
-                        news_panel.add(component);
-                        news_panel.add(Box.createVerticalStrut(10));
-
+                    while (result.next()) {
+                        id = result.getInt("id");
+                        System.out.println(id);
                     }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-            }
 
+                Integer news_id = null;
+                String author, title, description = null;
+                ResultSet news_result = database.getTable("SELECT * FROM news WHERE modpack_id = " + id + " ORDER BY date DESC LIMIT 10");
+                if (news_result != null) {
+                    try {
+                        while (news_result.next()) {
+                            szamlalo += 1;
+                            news_id = news_result.getInt("id");
+                            title = news_result.getString("title");
+                            description = news_result.getString("description");
+
+
+                            NewsComponent component = new NewsComponent(title, description, url, "");
+                            news_panel.add(component);
+                            news_panel.add(Box.createVerticalStrut(10));
+
+                        }
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+
+
+            }
 
         }
 
@@ -721,6 +727,7 @@ public class Main {
         news_panel.add(Box.createVerticalStrut(20));
         news_panel.revalidate();
         news_panel.repaint();
+
     }
 
     public void printModpacks(){
@@ -738,6 +745,7 @@ public class Main {
                 String version = (String) modpack.get("version");
                 String gameDirector = (String) modpack.get("gameDirector");
                 String icon = (String) modpack.get("icon");
+                String javadir = (String) modpack.get("java");
                 Boolean isOwn = (Boolean) modpack.get("isown");
 
                 ModpackComponent component = new ModpackComponent(name, version,icon,0);
@@ -755,6 +763,7 @@ public class Main {
                         url = icon;
                         selected_version = version;
                         gamedirector = gameDirector;
+                        java = javadir;
 
                         // Kép letöltése és beállítása
                             try {
