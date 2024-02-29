@@ -1,0 +1,23 @@
+{
+  "Kende": {
+    "name": "Kende",
+    "icon": "skin_view/head/TURTLE.png",
+    "skin": "TURTLE.png",
+    "uuid": "42daacd0-8fe5-4f31-9605-dddfe02c603d",
+    "selected": false
+  },
+  "KomaCraft12": {
+    "name": "KomaCraft12",
+    "icon": "skin_view/head/default.png",
+    "skin": "default.png",
+    "uuid": "cd645f4c-7121-468d-a1dc-d51911d78305",
+    "selected": true
+  },
+  "Jano": {
+    "name": "Jano",
+    "icon": "skin_view/head/default.png",
+    "skin": "default.png",
+    "uuid": "c4889a75-cf78-4432-8b14-f908dbf07147",
+    "selected": false
+  }
+}
